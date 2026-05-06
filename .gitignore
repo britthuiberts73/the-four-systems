@@ -1,0 +1,34 @@
+# Local credentials, never commit
+.mcp.json
+.claude/settings.local.json
+
+# Private business context (8 files per System 0)
+context/
+!context-templates/
+
+# Per-run state and outputs
+state/.lock
+state/agent-log.json
+output/
+reports/
+logs/
+/tmp/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Misc
+*.log

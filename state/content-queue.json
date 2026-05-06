@@ -1,0 +1,6 @@
+{
+  "schema_version": 2,
+  "description": "Read by content-writer (System 2). Each item has a status. content-writer picks the next status='queued' item, writes the post, then sets status='written' or 'needs_review'.",
+  "status_values": ["queued", "in_progress", "written", "needs_review", "skipped"],
+  "items": []
+}

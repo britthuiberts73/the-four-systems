@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Four Systems &middot; your-site.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-2: #0f0f0f;
+  --bg-3: #141414;
+  --line: #1f1f1f;
+  --line-2: #2a2a2a;
+  --fg: #f5f5f5;
+  --fg-2: #b4b4b4;
+  --dim: #6b6b6b;
+  --ghost: #404040;
+  --lime: #a3e635;
+  --mint: #5eead4;
+  --amber: #fbbf24;
+  --rose: #fb7185;
+  --sky: #7dd3fc;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; }
+body {
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.5;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(163,230,53,0.04), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(251,113,133,0.03), transparent 60%);
+  letter-spacing: -0.005em;
+}
+a { color: inherit; text-decoration: none; }
+code, .mono { font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace; }
+.mono-sm { font-family: 'Geist Mono', monospace; font-size: 11px; }
+.dim { color: var(--dim); }
+.r { text-align: right; }
+.c { text-align: center; }
+
+/* ----- top bar ----- */
+.topbar {
+  border-bottom: 1px solid var(--line);
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(12px);
+  position: sticky; top: 0; z-index: 100;
+}
+.topbar-inner {
+  max-width: 1400px; margin: 0 auto;
+  padding: 14px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  display: flex; align-items: baseline; gap: 12px;
+}
+.brand-mark {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+.brand-mark::before {
+  content: "//";
+  color: var(--lime);
+  font-style: normal;
+  margin-right: 6px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+}
+.brand-sub { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; }
+.live-stamp {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: var(--dim);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.live-stamp .pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 0 0 rgba(163,230,53,0.5);
+  animation: pulse 2.4s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(163,230,53,0.5); }
+  70%  { box-shadow: 0 0 0 10px rgba(163,230,53,0); }
+  100% { box-shadow: 0 0 0 0 rgba(163,230,53,0); }
+}
+
+/* ----- tab strip ----- */
+.tabs {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  position: sticky; top: 51px; z-index: 90;
+}
+.tabs-inner {
+  max-width: 1400px; margin: 0 auto;
+  padding: 0 32px;
+  display: flex; gap: 4px;
+}
+.tab {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  color: var(--dim);
+  cursor: pointer;
+  border: none; background: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s;
+  letter-spacing: 0.02em;
+}
+.tab:hover { color: var(--fg-2); }
+.tab .tab-num { color: var(--ghost); font-size: 10px; }
+.tab.active { color: var(--fg); border-bottom-color: var(--lime); }
+.tab.active .tab-num { color: var(--lime); }
+.tab .tab-count {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 10px;
+  color: var(--fg-2);
+}
+
+/* ----- main ----- */
+.main { max-width: 1400px; margin: 0 auto; padding: 32px; }
+.tab-pane { display: none; animation: fadein 0.18s ease-out; }
+.tab-pane.active { display: block; }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+/* ----- hero (overview) ----- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.hero-card {
+  background: var(--bg-2);
+  padding: 28px 24px 24px;
+  position: relative;
+  display: block;
+  cursor: pointer;
+  transition: background 0.15s;
+  opacity: 0;
+  animation: lift 0.5s cubic-bezier(0.2,0.8,0.2,1) forwards;
+}
+.hero-card[data-anim-delay] { animation-delay: calc(var(--delay,0ms)); }
+@keyframes lift { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.hero-card:hover { background: var(--bg-3); }
+.hero-card:hover .hero-card-arrow { color: var(--lime); transform: translateX(2px); }
+.hero-card-head {
+  display: flex; align-items: baseline; gap: 12px;
+  margin-bottom: 18px;
+}
+.hero-card-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--ghost);
+  letter-spacing: 0.1em;
+}
+.hero-card-name {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.hero-card-stat {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--c, var(--fg));
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+.hero-card-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--fg-2);
+  letter-spacing: 0.01em;
+}
+.hero-card-arrow {
+  position: absolute;
+  top: 24px; right: 20px;
+  color: var(--ghost);
+  font-size: 14px;
+  transition: color 0.15s, transform 0.15s;
+}
+
+/* ----- panel ----- */
+.panel {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.panel-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  gap: 16px;
+}
+.panel-title {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg);
+}
+.ts {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+}
+.ts code { font-size: 10px; color: var(--dim); }
+
+/* ----- stat row ----- */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.stat {
+  background: var(--bg-2);
+  padding: 18px 20px 16px;
+  opacity: 0;
+  animation: lift 0.45s cubic-bezier(0.2,0.8,0.2,1) forwards;
+  animation-delay: 80ms;
+}
+.stat-num {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--c, var(--fg));
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ----- tables ----- */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th {
+  font-family: 'Geist Mono', monospace;
+  text-align: left;
+  padding: 10px 16px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.data-table th.r { text-align: right; }
+.data-table th.c { text-align: center; }
+.data-table td {
+  padding: 12px 16px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.data-table tbody tr { transition: background 0.1s; }
+.data-table tbody tr:hover { background: var(--bg-3); }
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table .empty {
+  padding: 32px;
+  text-align: center;
+  color: var(--dim);
+  font-style: italic;
+}
+
+/* ----- pills, chips, badges ----- */
+.pill {
+  display: inline-flex; align-items: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c, var(--dim));
+  background: color-mix(in srgb, var(--c, var(--dim)) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--c, var(--dim)) 30%, transparent);
+  font-weight: 500;
+}
+.chip {
+  display: inline-flex; align-items: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  text-transform: lowercase;
+  letter-spacing: 0;
+  color: var(--c, var(--dim));
+  background: color-mix(in srgb, var(--c, var(--dim)) 12%, transparent);
+  margin-right: 4px;
+}
+.dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--c, var(--dim)); }
+.prio {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.prio-1 { background: color-mix(in srgb, var(--rose) 14%, transparent); color: var(--rose); }
+.prio-2 { background: color-mix(in srgb, var(--amber) 14%, transparent); color: var(--amber); }
+.prio-3 { background: color-mix(in srgb, var(--dim) 14%, transparent); color: var(--dim); }
+.delta.neg { color: var(--rose); font-weight: 600; }
+.delta.pos { color: var(--lime); font-weight: 600; }
+.link-sm { color: var(--sky); transition: color 0.15s; }
+.link-sm:hover { color: var(--fg); }
+
+/* ----- queue cards ----- */
+.queue-stack { display: flex; flex-direction: column; gap: 12px; }
+.queue-card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.queue-card:hover { border-color: var(--line-2); }
+.queue-card[open] { border-color: var(--line-2); }
+.queue-card summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 22px;
+  display: block;
+}
+.queue-card summary::-webkit-details-marker { display: none; }
+.queue-card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.queue-id { font-size: 10px; color: var(--dim); }
+.queue-card-title {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.queue-card-stats {
+  display: flex; gap: 24px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--fg-2);
+  flex-wrap: wrap;
+}
+.queue-card-stats code { color: var(--lime); font-size: 11px; }
+.queue-card-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 20px 22px 22px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+.qcb-col h4 {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 14px 0 8px;
+  font-weight: 500;
+}
+.qcb-col h4:first-child { margin-top: 0; }
+.qcb-col p { font-size: 12px; color: var(--fg-2); line-height: 1.6; }
+.dense { list-style: none; }
+.dense li {
+  padding: 3px 0;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--fg-2);
+}
+.link-list li a { color: var(--sky); word-break: break-all; }
+.link-list li a:hover { color: var(--fg); }
+.meta-dl { font-family: 'Geist Mono', monospace; font-size: 11px; }
+.meta-dl dt { color: var(--dim); display: inline; }
+.meta-dl dt::before { content: ""; display: block; height: 4px; }
+.meta-dl dd { display: inline; margin-left: 8px; color: var(--fg-2); }
+
+/* ----- seed list ----- */
+.seed-list { list-style: none; padding: 16px 20px; }
+.seed-list li { padding: 4px 0; font-size: 12px; }
+
+/* ----- markdown content (vital signs report) ----- */
+.md-content {
+  padding: 24px 28px 28px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--fg-2);
+}
+.md-content h1, .md-content h2, .md-content h3, .md-content h4 {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+  margin: 28px 0 12px;
+}
+.md-content > h1:first-child, .md-content > h2:first-child { margin-top: 0; }
+.md-content h1 {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+.md-content h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--lime);
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+.md-content h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.md-content p { margin: 0 0 14px; }
+.md-content ul { margin: 0 0 14px 18px; }
+.md-content li { margin: 4px 0; }
+.md-content a { color: var(--sky); }
+.md-content a:hover { color: var(--fg); }
+.md-content code {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  color: var(--lime);
+}
+.md-table-wrap { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: 8px; }
+.md-table { width: 100%; border-collapse: collapse; font-family: 'Geist Mono', monospace; font-size: 11px; }
+.md-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.md-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--fg-2);
+  vertical-align: top;
+}
+.md-table tr:last-child td { border-bottom: none; }
+.md-table strong { color: var(--fg); }
+
+/* ----- empty state ----- */
+.empty-state {
+  padding: 64px 32px;
+  text-align: center;
+  color: var(--dim);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-style: italic;
+}
+.refresh-table .reason { color: var(--fg-2); max-width: 380px; line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr 1fr; }
+  .queue-card-body { grid-template-columns: 1fr; gap: 16px; }
+  .topbar-inner, .tabs-inner, .main { padding-left: 20px; padding-right: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">the four systems</span>
+      <span class="brand-sub">your-site.com</span>
+    </div>
+    <div class="live-stamp">
+      <span class="pulse"></span>
+      <span>last updated 2026-05-06 14:55</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="tabs-inner">
+    <button class="tab" data-tab="overview"><span class="tab-num">00</span> overview</button>
+    <button class="tab" data-tab="keywords"><span class="tab-num">01</span> keywords <span class="tab-count">11</span></button>
+    <button class="tab" data-tab="queue"><span class="tab-num">02</span> content queue <span class="tab-count">2</span></button>
+    <button class="tab" data-tab="onsite"><span class="tab-num">03</span> onsite audit <span class="tab-count">AMBER</span></button>
+    <button class="tab" data-tab="refresh"><span class="tab-num">04</span> refresh queue <span class="tab-count">6</span></button>
+  </div>
+</nav>
+
+<main class="main">
+  
+<section class="tab-pane" id="tab-overview" data-tab-pane="overview">
+  <div class="hero-grid">
+    <a class="hero-card" data-tab="keywords" data-anim-delay="0" href="#keywords">
+              <div class="hero-card-head">
+                <span class="hero-card-num">01</span>
+                <span class="hero-card-name">System 1</span>
+              </div>
+              <div class="hero-card-stat" style="--c:var(--lime)">11</div>
+              <div class="hero-card-label">Keywords in bank</div>
+              <div class="hero-card-arrow">&rarr;</div>
+            </a>
+<a class="hero-card" data-tab="queue" data-anim-delay="60" href="#queue">
+              <div class="hero-card-head">
+                <span class="hero-card-num">02</span>
+                <span class="hero-card-name">System 2</span>
+              </div>
+              <div class="hero-card-stat" style="--c:var(--mint)">1 <span style="opacity:.4;font-size:.5em;font-style:normal">/</span> 2</div>
+              <div class="hero-card-label">Posts written / queued</div>
+              <div class="hero-card-arrow">&rarr;</div>
+            </a>
+<a class="hero-card" data-tab="onsite" data-anim-delay="120" href="#onsite">
+              <div class="hero-card-head">
+                <span class="hero-card-num">03</span>
+                <span class="hero-card-name">System 3</span>
+              </div>
+              <div class="hero-card-stat" style="--c:var(--amber)">AMBER</div>
+              <div class="hero-card-label">Onsite health verdict</div>
+              <div class="hero-card-arrow">&rarr;</div>
+            </a>
+<a class="hero-card" data-tab="refresh" data-anim-delay="180" href="#refresh">
+              <div class="hero-card-head">
+                <span class="hero-card-num">04</span>
+                <span class="hero-card-name">System 4</span>
+              </div>
+              <div class="hero-card-stat" style="--c:var(--rose)">6</div>
+              <div class="hero-card-label">Pages flagged for refresh</div>
+              <div class="hero-card-arrow">&rarr;</div>
+            </a>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Recent activity <span class="ts">last 12 runs</span></h2>
+    </div>
+    <table class="data-table">
+      <thead><tr><th></th><th>Agent</th><th>Status</th><th>Duration</th><th>Timestamp (UTC)</th></tr></thead>
+      <tbody><tr>
+              <td><span class="dot" style="--c:var(--mint)"></span></td>
+              <td><code>keyword-researcher</code></td>
+              <td>success</td>
+              <td class="dim">388s</td>
+              <td class="dim mono-sm">2026-04-01 09:03:00</td>
+            </tr><tr>
+              <td><span class="dot" style="--c:var(--mint)"></span></td>
+              <td><code>refresh-recommender</code></td>
+              <td>success</td>
+              <td class="dim">71s</td>
+              <td class="dim mono-sm">2026-04-22 08:11:00</td>
+            </tr><tr>
+              <td><span class="dot" style="--c:var(--mint)"></span></td>
+              <td><code>content-writer</code></td>
+              <td>success</td>
+              <td class="dim">244s</td>
+              <td class="dim mono-sm">2026-04-22 10:08:00</td>
+            </tr><tr>
+              <td><span class="dot" style="--c:var(--mint)"></span></td>
+              <td><code>refresh-recommender</code></td>
+              <td>success</td>
+              <td class="dim">78s</td>
+              <td class="dim mono-sm">2026-05-06 08:11:00</td>
+            </tr><tr>
+              <td><span class="dot" style="--c:var(--mint)"></span></td>
+              <td><code>onsite-audit</code></td>
+              <td>success</td>
+              <td class="dim">177s</td>
+              <td class="dim mono-sm">2026-05-06 09:17:00</td>
+            </tr><tr>
+              <td><span class="dot" style="--c:var(--mint)"></span></td>
+              <td><code>content-writer</code></td>
+              <td>success</td>
+              <td class="dim">229s</td>
+              <td class="dim mono-sm">2026-05-06 11:14:00</td>
+            </tr><tr>
+              <td><span class="dot" style="--c:var(--mint)"></span></td>
+              <td><code>keyword-researcher</code></td>
+              <td>success</td>
+              <td class="dim">402s</td>
+              <td class="dim mono-sm">2026-05-01 09:03:00</td>
+            </tr></tbody>
+    </table>
+  </div>
+</section>
+  
+<section class="tab-pane" id="tab-keywords" data-tab-pane="keywords">
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num">11</div><div class="stat-label">In bank</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--rose)">2</div><div class="stat-label">Priority 1</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--amber)">5</div><div class="stat-label">Priority 2</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--dim)">4</div><div class="stat-label">Priority 3</div></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Keyword bank</h2>
+      <span class="ts">11 entries &middot; sorted priority &darr; volume &darr;</span>
+    </div>
+    <table class="data-table">
+      <thead><tr>
+        <th>Keyword</th><th>Intent</th><th class="r">Volume</th><th class="r">KD</th>
+        <th class="c">P</th><th>Fan-out parent</th><th>Coverage</th><th>Seed</th>
+      </tr></thead>
+      <tbody><tr>
+              <td class="mono">how to do thing one</td>
+              <td><span class="pill" style="--c:var(--sky)">informational</span></td>
+              <td class="r">480</td>
+              <td class="r">22</td>
+              <td class="c"><span class="prio prio-1">1</span></td>
+              <td class="dim">thing one</td>
+              <td><span class="dim">&mdash;</span></td>
+              <td class="dim mono-sm">example seed keyword</td>
+            </tr><tr>
+              <td class="mono">how to do thing two</td>
+              <td><span class="pill" style="--c:var(--sky)">informational</span></td>
+              <td class="r">320</td>
+              <td class="r">28</td>
+              <td class="c"><span class="prio prio-1">1</span></td>
+              <td class="dim">thing two</td>
+              <td><span class="dim">&mdash;</span></td>
+              <td class="dim mono-sm">example seed keyword</td>
+            </tr><tr>
+              <td class="mono">what is thing three</td>
+              <td><span class="pill" style="--c:var(--sky)">informational</span></td>
+              <td class="r">1,300</td>
+              <td class="r">56</td>
+              <td class="c"><span class="prio prio-2">2</span></td>
+              <td class="dim">thing three</td>
+              <td><span class="dim">&mdash;</span></td>
+              <td class="dim mono-sm">example seed keyword</td>
+            </tr><tr>
+              <td class="mono">best tool for thing one</td>
+              <td><span class="pill" style="--c:var(--amber)">commercial</span></td>
+              <td class="r">590</td>
+              <td class="r">31</td>
+              <td class="c"><span class="prio prio-2">2</span></td>
+              <td class="dim">thing one</td>
+              <td><span class="dim">&mdash;</span></td>
+              <td class="dim mono-sm">example seed keyword</td>
+            </tr><tr>
+              <td class="mono">thing one vs thing two</td>
+              <td><span class="pill" style="--c:var(--amber)">commercial</span></td>
+              <td class="r">210</td>
+              <td class="r">24</td>
+              <td class="c"><span class="prio prio-2">2</span></td>
+              <td class="dim">thing one</td>
+              <td><span class="dim">&mdash;</span></td>
+              <td class="dim mono-sm">example seed keyword</td>
+            </tr><tr>
+              <td class="mono">thing one tutorial</td>
+              <td><span class="pill" style="--c:var(--sky)">informational</span></td>
+              <td class="r">170</td>
+              <td class="r">18</td>
+              <td class="c"><span class="prio prio-2">2</span></td>
+              <td class="dim">thing one</td>
+              <td><a href="https://your-site.com/blog/thing-one-tutorial/" target="_blank" class="link-sm">covered &nearr;</a></td>
+              <td class="dim mono-sm">example seed keyword</td>
+            </tr><tr>
+              <td class="mono">thing one cost</td>
+              <td><span class="pill" style="--c:var(--amber)">commercial</span></td>
+              <td class="r">110</td>
+              <td class="r">22</td>
+              <td class="c"><span class="prio prio-2">2</span></td>
+              <td class="dim">thing one cost</td>
+              <td><span class="dim">&mdash;</span></td>
+              <td class="dim mono-sm">another example seed</td>
+            </tr><tr>
+              <td class="mono">thing one example</td>
+              <td><span class="pill" style="--c:var(--sky)">informational</span></td>
+              <td class="r">90</td>
+              <td class="r">14</td>
+              <td class="c"><span class="prio prio-3">3</span></td>
+              <td class="dim">thing one</td>
+              <td><span class="dim">&mdash;</span></td>
+              <td class="dim mono-sm">example seed keyword</td>
+            </tr><tr>
+              <td class="mono">thing one pricing</td>
+              <td><span class="pill" style="--c:var(--amber)">commercial</span></td>
+              <td class="r">80</td>
+              <td class="r">26</td>
+              <td class="c"><span class="prio prio-3">3</span></td>
+              <td class="dim">thing one cost</td>
+              <td><span class="dim">&mdash;</span></td>
+              <td class="dim mono-sm">another example seed</td>
+            </tr><tr>
+              <td class="mono">thing one for beginners</td>
+              <td><span class="pill" style="--c:var(--sky)">informational</span></td>
+              <td class="r">70</td>
+              <td class="r">12</td>
+              <td class="c"><span class="prio prio-3">3</span></td>
+              <td class="dim">thing one</td>
+              <td><span class="dim">&mdash;</span></td>
+              <td class="dim mono-sm">example seed keyword</td>
+            </tr><tr>
+              <td class="mono">advanced thing one</td>
+              <td><span class="pill" style="--c:var(--sky)">informational</span></td>
+              <td class="r">50</td>
+              <td class="r">38</td>
+              <td class="c"><span class="prio prio-3">3</span></td>
+              <td class="dim">thing one</td>
+              <td><span class="dim">&mdash;</span></td>
+              <td class="dim mono-sm">example seed keyword</td>
+            </tr></tbody>
+    </table>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h2 class="panel-title">Seeds researched</h2></div>
+    <ul class="seed-list"><li><span class="mono">example seed keyword</span><span class="dim mono-sm"> &middot; 2026-05-01</span></li><li><span class="mono">another example seed</span><span class="dim mono-sm"> &middot; 2026-04-01</span></li></ul>
+  </div>
+</section>
+  
+<section class="tab-pane" id="tab-queue" data-tab-pane="queue">
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num" style="--c:var(--lime)">1</div><div class="stat-label">Queued</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--amber)">0</div><div class="stat-label">In progress</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--mint)">1</div><div class="stat-label">Written</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--rose)">1</div><div class="stat-label">Needs review</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--dim)">0</div><div class="stat-label">Skipped</div></div>
+  </div>
+  <div class="queue-stack">
+<details class="queue-card">
+  <summary>
+    <div class="queue-card-meta">
+      <code class="queue-id">2026-04-22-best-tool-for-thing-one</code>
+      <span class="pill" style="--c:var(--rose)">needs review</span>
+      <span class="pill" style="--c:var(--amber)">commercial</span>
+    </div>
+    <h3 class="queue-card-title">Best tool for thing one in 2026</h3>
+    <div class="queue-card-stats">
+      <span><span class="dim">primary</span> <code>best tool for thing one</code></span>
+      <span><span class="dim">vol</span> <strong>590</strong></span>
+      <span><span class="dim">kd</span> <strong>31</strong></span>
+      <span><span class="dim">words</span> <strong>2000</strong></span>
+      <a class="link-sm" href="./output/posts/2026-04-22-best-tool-for-thing-one.md" target="_blank">view post &nearr;</a>
+    </div>
+  </summary>
+  <div class="queue-card-body">
+    <div class="qcb-col">
+      <h4>Fan-out cluster</h4>
+      <ul class="dense"><li>thing one tools comparison</li><li>thing one tool reviews</li></ul>
+      <h4>Notes for writer</h4>
+      <p>Linter flagged 2 anchors over 3 words. Fix and re-mark as written.</p>
+    </div>
+    <div class="qcb-col">
+      <h4>Internal link targets</h4>
+      <ul class="dense link-list"><li><a href="https://your-site.com/features/main-product/" target="_blank" rel="noopener">https://your-site.com/features/main-product/</a></li></ul>
+      <h4>External authority candidates</h4>
+      <ul class="dense link-list"><li class="dim">none</li></ul>
+      <h4>Lifecycle</h4>
+      <dl class="meta-dl">
+        <dt>queued</dt><dd>2026-04-15T09:03:00Z</dd>
+        <dt>written</dt><dd>2026-04-22T10:08:00Z</dd>
+        <dt>slug</dt><dd><code>best-tool-for-thing-one</code></dd>
+      </dl>
+    </div>
+  </div>
+</details>
+
+<details class="queue-card">
+  <summary>
+    <div class="queue-card-meta">
+      <code class="queue-id">2026-05-06-how-to-do-thing-two</code>
+      <span class="pill" style="--c:var(--lime)">queued</span>
+      <span class="pill" style="--c:var(--sky)">informational</span>
+    </div>
+    <h3 class="queue-card-title">How to do thing two without breaking thing one</h3>
+    <div class="queue-card-stats">
+      <span><span class="dim">primary</span> <code>how to do thing two</code></span>
+      <span><span class="dim">vol</span> <strong>320</strong></span>
+      <span><span class="dim">kd</span> <strong>28</strong></span>
+      <span><span class="dim">words</span> <strong>1600</strong></span>
+      
+    </div>
+  </summary>
+  <div class="queue-card-body">
+    <div class="qcb-col">
+      <h4>Fan-out cluster</h4>
+      <ul class="dense"><li>thing two basics</li><li>thing two vs thing one</li><li>common thing two mistakes</li></ul>
+      <h4>Notes for writer</h4>
+      <p>Pair with the thing-one post as part of a cluster. Cross-link both ways.</p>
+    </div>
+    <div class="qcb-col">
+      <h4>Internal link targets</h4>
+      <ul class="dense link-list"><li><a href="https://your-site.com/blog/thing-two-overview/" target="_blank" rel="noopener">https://your-site.com/blog/thing-two-overview/</a></li></ul>
+      <h4>External authority candidates</h4>
+      <ul class="dense link-list"><li><a href="https://example.org/spec" target="_blank" rel="noopener">https://example.org/spec</a></li></ul>
+      <h4>Lifecycle</h4>
+      <dl class="meta-dl">
+        <dt>queued</dt><dd>2026-05-01T09:03:00Z</dd>
+        <dt>written</dt><dd>&amp;mdash;</dd>
+        <dt>slug</dt><dd><code>how-to-do-thing-two</code></dd>
+      </dl>
+    </div>
+  </div>
+</details>
+
+<details class="queue-card">
+  <summary>
+    <div class="queue-card-meta">
+      <code class="queue-id">2026-05-06-how-to-do-thing-one</code>
+      <span class="pill" style="--c:var(--mint)">written</span>
+      <span class="pill" style="--c:var(--sky)">informational</span>
+    </div>
+    <h3 class="queue-card-title">How to do thing one: a 2026 guide</h3>
+    <div class="queue-card-stats">
+      <span><span class="dim">primary</span> <code>how to do thing one</code></span>
+      <span><span class="dim">vol</span> <strong>480</strong></span>
+      <span><span class="dim">kd</span> <strong>22</strong></span>
+      <span><span class="dim">words</span> <strong>1800</strong></span>
+      <a class="link-sm" href="./output/posts/2026-05-06-how-to-do-thing-one.md" target="_blank">view post &nearr;</a>
+    </div>
+  </summary>
+  <div class="queue-card-body">
+    <div class="qcb-col">
+      <h4>Fan-out cluster</h4>
+      <ul class="dense"><li>how to do thing one fast</li><li>thing one tutorial</li><li>thing one example</li><li>thing one for beginners</li></ul>
+      <h4>Notes for writer</h4>
+      <p>Lead with the workflow. Three Kings must include the primary keyword. Reference the existing case study from experience-notes.md.</p>
+    </div>
+    <div class="qcb-col">
+      <h4>Internal link targets</h4>
+      <ul class="dense link-list"><li><a href="https://your-site.com/blog/related-one/" target="_blank" rel="noopener">https://your-site.com/blog/related-one/</a></li><li><a href="https://your-site.com/features/main-product/" target="_blank" rel="noopener">https://your-site.com/features/main-product/</a></li></ul>
+      <h4>External authority candidates</h4>
+      <ul class="dense link-list"><li><a href="https://example.gov/standard" target="_blank" rel="noopener">https://example.gov/standard</a></li><li><a href="https://example.org/research" target="_blank" rel="noopener">https://example.org/research</a></li></ul>
+      <h4>Lifecycle</h4>
+      <dl class="meta-dl">
+        <dt>queued</dt><dd>2026-05-01T09:03:00Z</dd>
+        <dt>written</dt><dd>2026-05-06T11:14:00Z</dd>
+        <dt>slug</dt><dd><code>how-to-do-thing-one</code></dd>
+      </dl>
+    </div>
+  </div>
+</details></div>
+</section>
+  
+<section class="tab-pane" data-tab-pane="onsite">
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num" style="--c:var(--amber)">AMBER</div><div class="stat-label">Site verdict</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--amber)">84</div><div class="stat-label">Performance</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--lime)">95</div><div class="stat-label">Accessibility</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--lime)">96</div><div class="stat-label">Best Practices</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--lime)">100</div><div class="stat-label">SEO</div></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Lighthouse + on-page audit <span class="ts">3 URLs</span></h2>
+      <span class="ts">2026-05-06T09:17:00Z</span>
+    </div>
+    <table class="data-table">
+      <thead><tr>
+        <th>URL</th><th>Verdict</th>
+        <th class="r">Perf</th><th class="r">A11y</th>
+        <th class="r">BP</th><th class="r">SEO</th>
+        <th class="r">LCP</th><th class="r">CLS</th>
+        <th class="r">Issues</th>
+      </tr></thead>
+      <tbody><tr>
+      <td><a href="https://your-site.com/" target="_blank" rel="noopener" class="mono-sm link-sm">your-site.com</a></td>
+      <td><span class="pill" style="--c:var(--amber)">amber</span></td>
+      <td class="r"><strong style="color:var(--amber)">84</strong></td>
+      <td class="r"><strong style="color:var(--lime)">92</strong></td>
+      <td class="r"><strong style="color:var(--lime)">96</strong></td>
+      <td class="r"><strong style="color:var(--lime)">100</strong></td>
+      <td class="r dim">2.8s</td>
+      <td class="r dim">0.040</td>
+      <td class="r dim">3</td>
+    </tr><tr>
+      <td><a href="https://your-site.com/pricing/" target="_blank" rel="noopener" class="mono-sm link-sm">your-site.com/pricing</a></td>
+      <td><span class="pill" style="--c:var(--amber)">amber</span></td>
+      <td class="r"><strong style="color:var(--amber)">76</strong></td>
+      <td class="r"><strong style="color:var(--lime)">95</strong></td>
+      <td class="r"><strong style="color:var(--lime)">92</strong></td>
+      <td class="r"><strong style="color:var(--lime)">100</strong></td>
+      <td class="r dim">3.2s</td>
+      <td class="r dim">0.080</td>
+      <td class="r dim">2</td>
+    </tr><tr>
+      <td><a href="https://your-site.com/blog/popular-old-post/" target="_blank" rel="noopener" class="mono-sm link-sm">your-site.com/blog/popular-old-post</a></td>
+      <td><span class="pill" style="--c:var(--lime)">green</span></td>
+      <td class="r"><strong style="color:var(--lime)">91</strong></td>
+      <td class="r"><strong style="color:var(--lime)">98</strong></td>
+      <td class="r"><strong style="color:var(--lime)">100</strong></td>
+      <td class="r"><strong style="color:var(--lime)">100</strong></td>
+      <td class="r dim">2.0s</td>
+      <td class="r dim">0.020</td>
+      <td class="r dim">0</td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <div class="panel"><div class="panel-head"><h2 class="panel-title">Money page alerts</h2></div><ul class="dense" style="padding:16px 20px"><li><a href="https://your-site.com/pricing/" target="_blank" class="mono-sm link-sm">https://your-site.com/pricing/</a>
+                  <span class="dim"> &middot; </span><span class="pill" style="--c:var(--amber)">amber</span>
+                  <span class="dim"> &middot; </span>performance 76, LCP 3.2s</li></ul></div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Template-level issues <span class="ts">fix once, lift many pages</span></h2>
+    </div>
+    <table class="data-table">
+      <thead><tr><th>Issue</th><th>Lighthouse audit ID</th><th class="c">Affected URLs</th><th>Severity</th></tr></thead>
+      <tbody><tr>
+              <td>Render-blocking resources</td>
+              <td><code>render-blocking-resources</code></td>
+              <td class="c">2</td>
+              <td><span class="chip" style="--c:var(--dim)">high</span></td>
+            </tr><tr>
+              <td>Missing meta descriptions</td>
+              <td><code>missing_meta_description</code></td>
+              <td class="c">1</td>
+              <td><span class="chip" style="--c:var(--dim)">medium</span></td>
+            </tr></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Full report &amp; recommended next actions</h2>
+      <span class="ts">2026-05-06-onsite-audit.md</span>
+    </div>
+    <article class="md-content"><h1>Onsite Audit, your-site.com, 2026-05-06</h1>
+<h2>Site rollup</h2>
+<ul><li>Verdict: amber</li><li>Average performance: 84</li><li>Average accessibility: 95</li><li>Average best practices: 96</li><li>Average SEO: 100</li><li>Pages audited: 3</li></ul>
+<h2>Per-page scores</h2>
+<div class="md-table-wrap"><table class="md-table"><thead><tr><th>URL</th><th>Verdict</th><th>Perf</th><th>A11y</th><th>BP</th><th>SEO</th><th>LCP</th><th>CLS</th></tr></thead><tbody><tr><td><code>your-site.com/</code></td><td>amber</td><td>84</td><td>92</td><td>96</td><td>100</td><td>2.84s</td><td>0.04</td></tr><tr><td><code>your-site.com/pricing/</code></td><td>amber</td><td>76</td><td>95</td><td>92</td><td>100</td><td>3.21s</td><td>0.08</td></tr><tr><td><code>your-site.com/blog/popular-old-post/</code></td><td>green</td><td>91</td><td>98</td><td>100</td><td>100</td><td>1.98s</td><td>0.02</td></tr></tbody></table></div>
+<h2>Template-level issues (fix once, lift many pages)</h2>
+<div class="md-table-wrap"><table class="md-table"><thead><tr><th>Issue</th><th>Lighthouse audit ID</th><th>Affected URLs</th><th>Severity</th><th>Fix</th></tr></thead><tbody><tr><td>Render-blocking resources</td><td><code>render-blocking-resources</code></td><td>2</td><td>high</td><td>Inline critical CSS for the hero, defer the rest. Estimated savings: 600-720ms LCP.</td></tr><tr><td>Missing meta descriptions</td><td><code>missing_meta_description</code></td><td>1</td><td>medium</td><td>Add meta descriptions to the homepage layout component.</td></tr></tbody></table></div>
+<h2>Money page alerts</h2>
+<div class="md-table-wrap"><table class="md-table"><thead><tr><th>URL</th><th>Verdict</th><th>Issue</th></tr></thead><tbody><tr><td><code>your-site.com/pricing/</code></td><td>amber</td><td>Performance 76, LCP 3.21s</td></tr></tbody></table></div>
+<h2>Recommended next actions (priority order)</h2>
+<p>1. Fix render-blocking resources on homepage and pricing. Two-page fix lifts both Lighthouse Performance and Core Web Vitals. 2. Properly size images on the pricing page. Replace the 1920x1080 hero with a srcset. 3. Add meta description to the homepage <code>&lt;head&gt;</code>. SEO score will hit 100.</p></article>
+  </div>
+</section>
+  
+<section class="tab-pane" data-tab-pane="refresh">
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num" style="--c:var(--rose)">3</div><div class="stat-label">Not indexed</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--sky)">1</div><div class="stat-label">Index warning</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--amber)">1</div><div class="stat-label">Stale (12mo+)</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--amber)">1</div><div class="stat-label">Aging (10-12mo)</div></div>
+    <div class="stat"><div class="stat-num" style="--c:var(--lime)">6</div><div class="stat-label">Actions queued</div></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Layer 2 &middot; recommended actions</h2>
+      <span class="ts">consumed by you (or your Your Brand refresh tool)</span>
+    </div>
+    <table class="data-table refresh-table">
+      <thead><tr>
+        <th>URL</th><th>Action</th><th class="c">P</th>
+        <th>Primary flag</th><th class="r">Age (d)</th>
+        <th>Recommendation</th><th>Status</th>
+      </tr></thead>
+      <tbody><tr>
+              <td><a href="https://your-site.com/blog/recent-but-not-indexed/" target="_blank" class="mono-sm link-sm">your-site.com/blog/recent-but-not-indexed</a></td>
+              <td><span class="chip" style="--c:var(--rose)">request indexing</span></td>
+              <td class="c"><span class="prio prio-2">2</span></td>
+              <td><span class="chip" style="--c:var(--dim)">not indexed</span></td>
+              <td class="r dim">39</td>
+              <td class="reason">Discovered but not yet indexed (39d old). Open GSC, paste the URL into the inspection bar, click Request Indexing. Confirm the page does not have a noindex meta tag and the canonical points to itself.</td>
+              <td><span class="pill" style="--c:var(--lime)">queued</span></td>
+            </tr><tr>
+              <td><a href="https://your-site.com/blog/another-not-indexed/" target="_blank" class="mono-sm link-sm">your-site.com/blog/another-not-indexed</a></td>
+              <td><span class="chip" style="--c:var(--rose)">request indexing</span></td>
+              <td class="c"><span class="prio prio-2">2</span></td>
+              <td><span class="chip" style="--c:var(--dim)">not indexed</span></td>
+              <td class="r dim">13</td>
+              <td class="reason">Discovered 13 days ago but not indexed. Same playbook as above. If 5+ recent posts share this state, the issue is likely a template-level noindex or canonical bug. Inspect the template once.</td>
+              <td><span class="pill" style="--c:var(--lime)">queued</span></td>
+            </tr><tr>
+              <td><a href="https://your-site.com/blog/unknown-to-google/" target="_blank" class="mono-sm link-sm">your-site.com/blog/unknown-to-google</a></td>
+              <td><span class="chip" style="--c:var(--rose)">request indexing</span></td>
+              <td class="c"><span class="prio prio-3">3</span></td>
+              <td><span class="chip" style="--c:var(--dim)">not indexed</span></td>
+              <td class="r dim">7</td>
+              <td class="reason">Google does not know this URL exists. Submit the URL via GSC, confirm it is in the sitemap that GSC has fetched, and add at least one internal link from a higher-traffic page on the site.</td>
+              <td><span class="pill" style="--c:var(--lime)">queued</span></td>
+            </tr><tr>
+              <td><a href="https://your-site.com/blog/old-evergreen-guide/" target="_blank" class="mono-sm link-sm">your-site.com/blog/old-evergreen-guide</a></td>
+              <td><span class="chip" style="--c:var(--amber)">refresh</span></td>
+              <td class="c"><span class="prio prio-3">3</span></td>
+              <td><span class="chip" style="--c:var(--dim)">stale 12mo</span></td>
+              <td class="r dim">463</td>
+              <td class="reason">Post is 463 days old (15 months). Refresh dates throughout, replace any pre-2024 stats, re-check the SERP for what is now ranking and add any new H2s, then submit to GSC for re-indexing. Add an Updated YYYY-MM-DD notice at the top.</td>
+              <td><span class="pill" style="--c:var(--lime)">queued</span></td>
+            </tr><tr>
+              <td><a href="https://your-site.com/blog/duplicate-canonical/" target="_blank" class="mono-sm link-sm">your-site.com/blog/duplicate-canonical</a></td>
+              <td><span class="chip" style="--c:var(--sky)">fix canonical</span></td>
+              <td class="c"><span class="prio prio-3">3</span></td>
+              <td><span class="chip" style="--c:var(--dim)">index warning</span></td>
+              <td class="r dim">92</td>
+              <td class="reason">Google chose a different canonical than the page declared. Find what Google picked (GSC URL Inspection shows it under Indexing: Google-selected canonical) and either align the page&#x27;s &lt;link rel=&quot;canonical&quot;&gt; or 301 to the chosen URL.</td>
+              <td><span class="pill" style="--c:var(--lime)">queued</span></td>
+            </tr><tr>
+              <td><a href="https://your-site.com/blog/aging-but-fine/" target="_blank" class="mono-sm link-sm">your-site.com/blog/aging-but-fine</a></td>
+              <td><span class="chip" style="--c:var(--dim)">audit then decide</span></td>
+              <td class="c"><span class="prio prio-4">4</span></td>
+              <td><span class="chip" style="--c:var(--dim)">aging</span></td>
+              <td class="r dim">332</td>
+              <td class="reason">Approaching 12-month mark but currently fine. Check current GSC impressions and position. If still climbing or stable: leave alone. If slipping: queue for refresh next month.</td>
+              <td><span class="pill" style="--c:var(--lime)">queued</span></td>
+            </tr></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Layer 1 &middot; sitemap + GSC indexing scan</h2>
+      <span class="ts">2026-05-06T09:13:00Z &middot; 14 URLs evaluated &middot; 6 flagged</span>
+    </div>
+    <table class="data-table">
+      <thead><tr>
+        <th>URL</th><th>Flags</th><th class="r">Age (d)</th>
+        <th>Coverage state</th><th class="dim">Last crawl</th>
+      </tr></thead>
+      <tbody><tr>
+      <td><a href="https://your-site.com/blog/old-evergreen-guide/" target="_blank" rel="noopener" class="mono-sm link-sm">your-site.com/blog/old-evergreen-guide</a></td>
+      <td><span class="chip" style="--c:var(--dim)">stale 12mo</span></td>
+      <td class="r">463</td>
+      <td class="dim">Indexed, not submitted in sitemap</td>
+      <td class="r dim mono-sm">2026-04-12</td>
+    </tr><tr>
+      <td><a href="https://your-site.com/blog/recent-but-not-indexed/" target="_blank" rel="noopener" class="mono-sm link-sm">your-site.com/blog/recent-but-not-indexed</a></td>
+      <td><span class="chip" style="--c:var(--dim)">not indexed</span></td>
+      <td class="r">39</td>
+      <td class="dim">Discovered - currently not indexed</td>
+      <td class="r dim mono-sm">&amp;mdash;</td>
+    </tr><tr>
+      <td><a href="https://your-site.com/blog/another-not-indexed/" target="_blank" rel="noopener" class="mono-sm link-sm">your-site.com/blog/another-not-indexed</a></td>
+      <td><span class="chip" style="--c:var(--dim)">not indexed</span></td>
+      <td class="r">13</td>
+      <td class="dim">Discovered - currently not indexed</td>
+      <td class="r dim mono-sm">&amp;mdash;</td>
+    </tr><tr>
+      <td><a href="https://your-site.com/blog/unknown-to-google/" target="_blank" rel="noopener" class="mono-sm link-sm">your-site.com/blog/unknown-to-google</a></td>
+      <td><span class="chip" style="--c:var(--dim)">not indexed</span></td>
+      <td class="r">7</td>
+      <td class="dim">URL is unknown to Google</td>
+      <td class="r dim mono-sm">&amp;mdash;</td>
+    </tr><tr>
+      <td><a href="https://your-site.com/blog/duplicate-canonical/" target="_blank" rel="noopener" class="mono-sm link-sm">your-site.com/blog/duplicate-canonical</a></td>
+      <td><span class="chip" style="--c:var(--dim)">index warning</span></td>
+      <td class="r">92</td>
+      <td class="dim">Duplicate, Google chose different canonical than user</td>
+      <td class="r dim mono-sm">2026-04-08</td>
+    </tr><tr>
+      <td><a href="https://your-site.com/blog/aging-but-fine/" target="_blank" rel="noopener" class="mono-sm link-sm">your-site.com/blog/aging-but-fine</a></td>
+      <td><span class="chip" style="--c:var(--dim)">aging</span></td>
+      <td class="r">332</td>
+      <td class="dim">Indexed, not submitted in sitemap</td>
+      <td class="r dim mono-sm">2026-04-22</td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Full classification report</h2>
+      <span class="ts">2026-05-06-refresh-recommender.md</span>
+    </div>
+    <article class="md-content"><h1>Refresh Recommender, your-site.com, 2026-05-06</h1>
+<h2>Summary</h2>
+<ul><li>URLs evaluated: 14</li><li>Actions queued: 6</li><li>by_action: request_indexing 3, fix_canonical 1, refresh 1, audit_then_decide 1</li></ul>
+<h2>Action: request indexing</h2>
+<div class="md-table-wrap"><table class="md-table"><thead><tr><th>URL</th><th>Coverage state</th><th>Age (d)</th><th>Recommendation</th></tr></thead><tbody><tr><td><code>your-site.com/blog/recent-but-not-indexed/</code></td><td>Discovered - currently not indexed</td><td>39</td><td>Open GSC, paste the URL into the inspection bar, click Request Indexing. Confirm no <code>noindex</code> meta tag and that canonical points to itself.</td></tr><tr><td><code>your-site.com/blog/another-not-indexed/</code></td><td>Discovered - currently not indexed</td><td>13</td><td>Same playbook. Pattern alert: 5+ recent posts share this state, likely a template-level bug. Inspect the template once.</td></tr><tr><td><code>your-site.com/blog/unknown-to-google/</code></td><td>URL is unknown to Google</td><td>7</td><td>Submit the URL via GSC, confirm it is in the sitemap GSC has fetched, add at least one internal link from a higher-traffic page.</td></tr></tbody></table></div>
+<h2>Action: refresh content</h2>
+<div class="md-table-wrap"><table class="md-table"><thead><tr><th>URL</th><th>Age (d)</th><th>Why refresh now</th><th>Recommendation</th></tr></thead><tbody><tr><td><code>your-site.com/blog/old-evergreen-guide/</code></td><td>463</td><td>Past 12 months, dates and stats likely stale</td><td>Refresh dates throughout, replace pre-2024 stats, re-check the SERP for new H2s, add an "Updated YYYY-MM-DD" notice at the top, submit to GSC for re-indexing.</td></tr></tbody></table></div>
+<h2>Action: fix canonical</h2>
+<div class="md-table-wrap"><table class="md-table"><thead><tr><th>URL</th><th>Coverage state</th><th>Recommendation</th></tr></thead><tbody><tr><td><code>your-site.com/blog/duplicate-canonical/</code></td><td>Duplicate, Google chose different canonical than user</td><td>Find Google-selected canonical in GSC URL Inspection, then either align the page's <code>&lt;link rel="canonical"&gt;</code> or 301 to the chosen URL.</td></tr></tbody></table></div>
+<h2>Action: audit then decide</h2>
+<div class="md-table-wrap"><table class="md-table"><thead><tr><th>URL</th><th>Flags</th><th>Recommendation</th></tr></thead><tbody><tr><td><code>your-site.com/blog/aging-but-fine/</code></td><td>aging</td><td>At 332 days, approaching 12-month mark. Currently indexed and stable. If GSC shows position climbing or stable: leave alone. If slipping: queue for refresh next month.</td></tr></tbody></table></div>
+<h2>Notes for next run</h2>
+<ul><li>5 of the 14 evaluated posts are flagged <code>not_indexed</code> with very recent dates (7-39 days). Two of them share the coverage state <code>URL is unknown to Google</code>. Strong signal that the /blog/ index hub itself may be unknown to Google or your XML sitemap is not submitted correctly. Fix this template-level issue first, then individual indexing requests will land faster.</li><li>Only one stale_12mo this run. Calendar reminder for next month: same scan should catch the next batch as they cross 365 days.</li></ul></article>
+  </div>
+</section>
+</main>
+
+<script>
+(function() {
+  var tabs = document.querySelectorAll('.tab');
+  var panes = document.querySelectorAll('.tab-pane');
+  function activate(name) {
+    tabs.forEach(function(t) { t.classList.toggle('active', t.dataset.tab === name); });
+    panes.forEach(function(p) { p.classList.toggle('active', p.dataset.tabPane === name); });
+    if (history.replaceState) history.replaceState(null, '', '#' + name);
+  }
+  tabs.forEach(function(t) {
+    t.addEventListener('click', function(e) {
+      e.preventDefault();
+      activate(t.dataset.tab);
+    });
+  });
+  // Apply staggered reveal delays
+  document.querySelectorAll('[data-anim-delay]').forEach(function(el) {
+    el.style.setProperty('--delay', el.dataset.animDelay + 'ms');
+  });
+  // Read initial tab from hash
+  var initial = (location.hash || '').replace('#','');
+  var valid = Array.from(tabs).map(function(t){return t.dataset.tab;});
+  activate(valid.indexOf(initial) >= 0 ? initial : 'overview');
+  // Hero card click navigates to corresponding tab
+  document.querySelectorAll('.hero-card').forEach(function(c) {
+    c.addEventListener('click', function(e) {
+      var dest = c.dataset.tab;
+      if (!dest) return;
+      e.preventDefault();
+      var name = dest.replace('tab-','');
+      activate(name);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+})();
+</script>
+</body>
+</html>

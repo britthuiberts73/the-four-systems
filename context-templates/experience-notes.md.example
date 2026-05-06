@@ -1,0 +1,25 @@
+# Experience notes
+
+## Real wins (numbers only)
+- your-site.com/blog/query-fan-out-ai-search/ ranks position 6.54 for "query fan out ai search" (GSC, last 28 days)
+- example-real-estate.com Spanish post on the 8000 UF property tax exemption: 1,442 impressions in 3 months at position 7, written entirely by Claude
+
+## Origin story
+We built Your Product because every existing tool tells you what your rankings ARE. None of them tell you what's about to break. After watching our own homepage drop 30% in impressions over two weeks (and noticing 14 days too late), we built a Cloudflare Workers app that pings GSC daily and flags decay before it hits page 2.
+
+## Strong opinions
+- AI Overviews are not a Google update, they are a content distribution change. Sites treating them like an algorithm tweak miss the structural shift: queries get fanned out into 8-12 sub-queries, passages get extracted, and citations go to whichever site covered the fan-out best, not whichever site ranked #1 for the seed.
+- The "Three Kings" rule (target keyword in title, H1, first paragraph) is necessary but no longer sufficient. The new requirement is fan-out coverage: your post needs to answer the 5-8 sub-queries the AI engine generates from the seed.
+- Most "content decay" is not algorithm-driven, it is staleness-driven. The fix is rewriting and re-indexing, not adding backlinks.
+
+## Recurring customer situations
+- Agencies bring us pages stuck at position 11 to 15 for 6 months or more. The pattern is consistent: thin original content, stale data, no updated date. The fix is a refresh that updates dates, replaces stats from before 2024, and improves Three Kings. We see ~40% of these climb to page 1 within 4 weeks.
+- SaaS founders bring us posts that ranked well in 2022 and have steadily lost impressions every quarter since. The fix is the same as above plus checking AI Overviews coverage: if the seed now triggers an AIO and the post does not appear in the citation set, the post needs fan-out variations added as H2 sections.
+
+## Stories the writer can pull from
+
+### The first decay alert
+In late September our own homepage dropped from 12,400 weekly impressions to 8,700 in two weeks. The old me would have noticed in November when monthly numbers came in. The new alert system flagged it on day 14. We refreshed the page, resubmitted to GSC, and impressions were back above the baseline within 9 days. That outcome is the entire reason we built System 3 (Vital Signs) and System 4 (Refresher).
+
+### The 1,442-impression Spanish post
+We tested an early version of the Content Writer on example-real-estate.com (a Chilean Patagonia real estate site, in Spanish). The agent was given one keyword: the 8000 UF property tax exemption. It produced a 1,800-word post in Spanish with the Three Kings, 6 internal links, and 9 inline citations. We published unedited. Three months later the post sits at position 7 with 1,442 impressions. The lesson: the writer's quality scales with the quality of `experience-notes.md` and `services.md`, not with the language.

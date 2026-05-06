@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.example.seo-content-writer</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/zsh</string>
+        <string>-c</string>
+        <string>cd "/path/to/the-four-systems" &amp;&amp; ./coordinator.sh content-writer</string>
+    </array>
+
+    <!-- Runs every Tuesday at 10:07 local time. Picks one queued item, drafts in
+         auto-pilot mode (research-only if no relevant experience-notes match),
+         saves markdown to output/posts/, ticks the queue item off. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key>
+        <integer>2</integer>
+        <key>Hour</key>
+        <integer>10</integer>
+        <key>Minute</key>
+        <integer>7</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/seo-content-writer.stdout</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/seo-content-writer.stderr</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Applications/cmux.app/Contents/Resources/bin:/path/to/.local/bin:/path/to/.npm-global/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+</dict>
+</plist>

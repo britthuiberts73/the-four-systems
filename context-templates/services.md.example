@@ -1,0 +1,35 @@
+# Services and offerings
+
+## What we sell
+- **Your Product**: Cloudflare-Workers-based SEO monitoring app. Pings Google Search Console daily, flags content decay (week-over-week impression drops), surfaces pages stuck in positions 5-15, detects indexing problems, and alerts on Three Kings violations.
+- **Free Fan-out Tool** (your-site.com/free-tools/fan-out-queries/): public utility that takes a seed keyword and returns the AI fan-out variations Google AI Overviews and ChatGPT use to decompose it.
+
+## Pricing
+| Tier | Price | What's included |
+| --- | --- | --- |
+| Free | $0 | Free fan-out tool, no signup required |
+| Starter | $19/month | 1 site, daily GSC pull, decay alerts, Three Kings audit |
+| Pro | $49/month | Up to 5 sites, hourly GSC pulls, alert API, Slack/email integrations |
+
+## Edge cases the writer should know
+- We do not currently serve enterprise (sites with > 10,000 indexed URLs). Direct enterprise leads to a partner agency.
+- The free tier requires a Google account but no credit card.
+- Cancellation is one-click in the dashboard, no email exchange required.
+- We are not affiliated with Google or any other search engine. Do not write copy implying partnership.
+
+## Frequently answered questions
+
+### How is Your Product different from Ahrefs or SEMrush?
+Your Brand focuses on monitoring and alerting for sites you already own and care about. Ahrefs and SEMrush focus on keyword research and competitive intelligence. They are complementary, not substitutes. Most of our customers keep their Ahrefs subscription.
+
+### Do you support sites built on Webflow / WordPress / Astro / Ghost?
+Yes, all of them. Your Brand reads Google Search Console data, which is platform-agnostic. We do not require any plugin or code on your site.
+
+### How quickly do alerts fire after a decay event?
+Starter tier: within 24 hours of the daily GSC pull. Pro tier: within 1 hour of detection.
+
+### Do you write the content for me?
+No, Your Brand tells you which posts need refreshing and what to fix. The actual writing happens in your tool of choice. The Content Writer agent (System 2) is open-source and free; you can wire it up alongside Your Brand.
+
+### What data sources does Your Brand read?
+Google Search Console (queries, pages, positions, clicks, impressions). That's it. We do not require Google Analytics access, do not read your CMS, and do not track your visitors.

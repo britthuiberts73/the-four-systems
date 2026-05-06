@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.example.seo-refresh-recommender</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/zsh</string>
+        <string>-c</string>
+        <string>cd "/path/to/the-four-systems" &amp;&amp; ./coordinator.sh refresh-recommender</string>
+    </array>
+
+    <!-- Daily at 08:11 local. Pulls 28d vs 28d GSC data, flags issues, routes
+         refresh candidates to System 4's queue. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>8</integer>
+        <key>Minute</key>
+        <integer>11</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/seo-refresh-recommender.stdout</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/seo-refresh-recommender.stderr</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Applications/cmux.app/Contents/Resources/bin:/path/to/.local/bin:/path/to/.npm-global/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+</dict>
+</plist>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.example.seo-keyword-researcher</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/zsh</string>
+        <string>-c</string>
+        <string>cd "/path/to/the-four-systems" &amp;&amp; ./coordinator.sh keyword-researcher</string>
+    </array>
+
+    <!-- Runs the 1st of every month at 09:03 local time -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Day</key>
+        <integer>1</integer>
+        <key>Hour</key>
+        <integer>9</integer>
+        <key>Minute</key>
+        <integer>3</integer>
+    </dict>
+
+    <!-- launchd will run a missed schedule the next time the Mac is awake -->
+    <key>StartOnMount</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/seo-keyword-researcher.stdout</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/seo-keyword-researcher.stderr</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Applications/cmux.app/Contents/Resources/bin:/path/to/.local/bin:/path/to/.npm-global/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+</dict>
+</plist>

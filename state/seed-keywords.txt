@@ -1,0 +1,6 @@
+# One seed keyword per line. Lines starting with # are ignored.
+# The keyword-researcher rotates through these on each run, tracking
+# last_researched per seed in keyword-bank.json so seeds aren't duplicated.
+# Replace these examples with seeds relevant to your business.
+example seed keyword
+another example seed

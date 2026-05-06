@@ -1,0 +1,20 @@
+{
+  "_comment": "Drop this at .claude/settings.local.json in your project root to pre-allow the tools the four-systems skills use. Anything outside this allowlist still prompts you. Tighten or loosen as you like.",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash(./coordinator.sh:*)",
+      "Bash(python3 scripts/*)",
+      "Bash(git status)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(open:*)",
+      "Bash(launchctl list:*)",
+      "WebFetch",
+      "mcp__dfs-mcp__*",
+      "mcp__gsc__*"
+    ]
+  }
+}

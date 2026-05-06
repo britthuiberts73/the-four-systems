@@ -1,0 +1,17 @@
+{
+  "_comment": "Copy this to .mcp.json and fill in your DataForSEO + GSC credentials. Claude Code auto-loads .mcp.json from the project root when started in this folder.",
+  "mcpServers": {
+    "dfs-mcp": {
+      "command": "npx",
+      "args": ["-y", "dataforseo-mcp-server"],
+      "env": {
+        "DATAFORSEO_USERNAME": "you@example.com",
+        "DATAFORSEO_PASSWORD": "your-dataforseo-password"
+      }
+    },
+    "gsc": {
+      "command": "uv",
+      "args": ["run", "--directory", "/path/to/mcp-gsc", "python", "gsc_server.py"]
+    }
+  }
+}

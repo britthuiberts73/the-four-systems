@@ -1,0 +1,25 @@
+# Competitors
+
+## Direct (same product space, GSC-based monitoring)
+- **SEOmonitor**: comprehensive but expensive ($300+/mo), oriented at agencies. Slow on AI Overviews coverage.
+- **Accuranker**: solid SERP tracker, weak on decay/alerting layer.
+- **Nightwatch**: mid-market, dashboard-heavy, weak API.
+
+## Indirect (same audience, different product)
+- **ahrefs.com/blog**: comprehensive, well-researched, but corporate voice and slow to publish on AI search topics. Their guides are often 3,000+ words where 1,500 would do.
+- **searchengineland.com**: news-driven, not how-to. Good for citations on Google announcements.
+- **searchengineroundtable.com**: Barry Schwartz, near-realtime news, light on tactics. Cite for SERP feature and update timing.
+- **backlinko.com**: Brian Dean's brand. Very strong on traditional SEO, weak on AI-era tactics. Use sparingly.
+
+## Their content moat (do NOT duplicate without a fresh angle)
+- Comprehensive "complete guide to <X>" megaposts (Ahrefs, Backlinko)
+- Annual "ranking factors" studies (Backlinko, SEMrush)
+- "Beginners guide to SEO" content (everyone)
+- Generic "how to do keyword research" tutorials
+
+## Their content gap (where we should focus)
+- AI fan-out coverage as a ranking input (almost nobody covers this concretely)
+- Content decay detection workflows (mentioned by everyone, executable by almost no one)
+- Practical Claude Code / AI agent automation for SEO (almost zero quality coverage as of May 2026)
+- Three Kings audit at scale (we have a tool for this; nobody else writes about it)
+- AI Overviews citation worthiness signals (everyone speculates, few measure)

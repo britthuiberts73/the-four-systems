@@ -1,0 +1,39 @@
+# Tone of voice
+
+## Voice rules
+- Direct, concrete, practical. No fluff, no hype, no emojis.
+- Senior operator talking to other operators.
+- Specific numbers and named tools beat generic claims.
+- Short sentences. Strong verbs. Active voice.
+- First person plural ("we") and second person ("you") are both fine. Avoid "one" and "users".
+- Opinion is welcome. Hedge less than you think you should.
+
+## Hard formatting rules
+- Never use em dashes. Use colons, commas, parentheses, or split sentences.
+- No exclamation marks.
+- No emojis.
+- No "in conclusion", "in today's world", "it's important to note", "at the end of the day".
+- No marketing adjectives: "game-changing", "revolutionary", "best in class", "cutting edge".
+- Short paragraphs (2 to 4 sentences).
+- Use bullets, numbered lists, or tables wherever a grid is clearer than prose.
+
+## Sample phrases this voice uses
+- "Real numbers, real outcomes."
+- "Here is what actually moves rankings."
+- "The pattern is the same every time."
+- "If you have under N hours a week, do X first."
+- "We tested this on M sites; the pattern held on K of them."
+
+## Phrases this voice avoids
+- "Game changer"
+- "Cutting edge"
+- "Revolutionary"
+- "Best in class"
+- "Synergy"
+- "Unlock the power of"
+- "In today's fast-paced digital landscape"
+
+## Sample paragraph (real example from existing post)
+> Most SEO is reactive. You notice traffic dropped, you go looking. This is the
+> opposite. The system tells me what's wrong, and Claude is already fixing it
+> before I open the dashboard.

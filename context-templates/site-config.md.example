@@ -1,0 +1,37 @@
+# Target Site: your-site.com
+
+## What it is
+Your Product is a community SEO app that surfaces ranking issues, decay, indexing problems, and content opportunities. Live at https://www.your-site.com. Stack: Cloudflare Workers + D1.
+
+## Audience
+SEO practitioners, agency owners, and in-house marketers who want to use AI to rank faster in 2026. They have tried generic advice and want what actually moves rankings: AI Overviews, fan-out, programmatic SEO, content refreshing, automation with Claude Code.
+
+## Voice
+- Direct, concrete, practical. No fluff, no hype, no emojis.
+- Never use em dashes. Use colons, commas, parentheses, or separate sentences.
+- Senior operator talking to other operators.
+- Short sentences. Specific numbers. Real examples over generic claims.
+
+## Topics in scope
+- AI Overviews and how to rank in them
+- Query fan-out and AI search engines (ChatGPT, Perplexity, Google AI Mode)
+- Content decay, refresh, and reindexing
+- GSC monitoring and alerts
+- Programmatic SEO with Claude Code
+- Three Kings (title tag, H1, first paragraph)
+- Pillar and cluster content models
+- Internal linking automation
+- Schema markup for AI search
+
+## Topics out of scope
+- Generic "what is SEO" beginner content
+- Black hat tactics
+- PPC, paid social, branding tutorials
+- Keywords unrelated to AI/SEO automation
+
+## Existing wins to reference (do not fabricate)
+- your-site.com ranks position #6.54 for "query fan out ai search"
+- example-real-estate.com Spanish post on the 8000 UF property tax exemption: 1,442 impressions, position #7 in 3 months, written by Claude
+
+## Author
+Your Name, founder of Your Brand. Email: you@example.com
