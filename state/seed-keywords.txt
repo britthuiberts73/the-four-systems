@@ -2,5 +2,13 @@
 # The keyword-researcher rotates through these on each run, tracking
 # last_researched per seed in keyword-bank.json so seeds aren't duplicated.
 # Replace these examples with seeds relevant to your business.
-example seed keyword
-another example seed
+vibecoding cursus
+website bouwen met AI
+AI tools voor ZZP
+SEO zelf doen
+Meta Ads zelf beheren
+online cursus ondernemer
+no-code website bouwen
+AI automatisering klein bedrijf
+contentcreatie voor ondernemers
+prompt engineering beginners
